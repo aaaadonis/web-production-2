@@ -17,10 +17,10 @@ shuffleBut.addEventListener("click", function(){
 
 const fetchArt = async () =>{
         if(getArt(randomInt()).hasImages == true){
-            await getArt(randomInt())
-        }else{
-            fetchArt()
-        }
+            await getArt(randomInt())}
+        // }else{
+        //     fetchArt()
+        // }
 }
 
 const getArt = async id => {
