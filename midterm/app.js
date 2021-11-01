@@ -5,23 +5,24 @@ const shuffleBut = document.getElementById("shuffle")
 
 
 function randomInt(){
-    return Math.floor(Math.random() * 853314);
+    return Math.floor(Math.random() * 436535);
 }
 
 
-shuffleBut.addEventListener("click", function(){
+shuffleBut.addEventListener("click", async function(){
     artCont.innerHTML = ""
-    fetchArt();
+    await fetchArt();
 })
 
 
 const fetchArt = async () =>{
-        if(getArt(randomInt()).hasImages == true){
-            await getArt(randomInt())}
-        // }else{
-        //     fetchArt()
-        // }
+        if(getArt(randomInt()).objectID === undefined){
+            return
+        }else{
+            await getArt(randomInt())
+        }
 }
+
 
 const getArt = async id => {
     const url = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`;
@@ -31,7 +32,7 @@ const getArt = async id => {
     artCard(art);
 }
 
-fetchArt();
+await fetchArt();
 
 function artCard(art){
     const artEl = document.createElement('div');
