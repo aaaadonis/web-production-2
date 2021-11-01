@@ -9,9 +9,9 @@ function randomInt(){
 }
 
 
-shuffleBut.addEventListener("click", async function(){
+shuffleBut.addEventListener("click", function(){
     artCont.innerHTML = ""
-    await fetchArt();
+    fetchArt();
 })
 
 
@@ -26,13 +26,19 @@ const fetchArt = async () =>{
 
 const getArt = async id => {
     const url = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`;
+    if(url === undefined){
+        return
+    }
 
     const res = await fetch(url);
+    if(res.status == 404){
+        getArt()
+    }
     const art = await res.json();
     artCard(art);
 }
 
-await fetchArt();
+fetchArt();
 
 function artCard(art){
     const artEl = document.createElement('div');
