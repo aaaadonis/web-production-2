@@ -1,48 +1,35 @@
-const artCont = document.getElementById("art_cont");
-const art_count = 100;
-const shuffleBut = document.getElementById("shuffle")
+(async () => {
+  const artCont = document.getElementById("art_cont");
+  const art_count = 100;
+  const shuffleBut = document.getElementById("shuffle");
 
-
-
-function randomInt(){
+  function randomInt() {
     return Math.floor(Math.random() * 436535);
-}
+  }
 
+  shuffleBut.addEventListener("click", async function () {
+    artCont.innerHTML = "";
+    await getArt();
+  });
 
-shuffleBut.addEventListener("click", function(){
-    artCont.innerHTML = ""
-    fetchArt();
-})
-
-
-const fetchArt = async () =>{
-        if(getArt(randomInt()).objectID === undefined){
-            return
-        }else{
-            await getArt(randomInt())
-        }
-}
-
-
-const getArt = async id => {
+  const getArt = async () => {
+    const id = randomInt();
     const url = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${id}`;
-    if(url === undefined){
-        return
+
+    try {
+      const res = await fetch(url);
+      const art = await res.json();
+      artCard(art);
+    } catch {
+      await getArt();
     }
+  };
 
-    const res = await fetch(url);
-    if(res.status == 404){
-        getArt()
-    }
-    const art = await res.json();
-    artCard(art);
-}
+  await getArt();
 
-fetchArt();
-
-function artCard(art){
-    const artEl = document.createElement('div');
-    artEl.classList.add('art');
+  function artCard(art) {
+    const artEl = document.createElement("div");
+    artEl.classList.add("art");
 
     const title = art.title[0].toUpperCase() + art.title.slice(1);
 
@@ -57,4 +44,5 @@ function artCard(art){
 
     artEl.innerHTML = artInnerCode;
     artCont.appendChild(artEl);
-}
+  }
+})();
