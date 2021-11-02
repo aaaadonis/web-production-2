@@ -27,22 +27,32 @@
 
   await getArt();
 
-  function artCard(art) {
-    const artEl = document.createElement("div");
-    artEl.classList.add("art");
+function artCard(art) {
+        if(art.isPublicDomain)
+        {
+            const artEl = document.createElement("div");
+            artEl.classList.add("art");
+        
+            const title = art.title[0].toUpperCase() + art.title.slice(1);
+        
+            const artInnerCode = `
+            <a href="${art.objectURL}" target="_blank">
+                <div class="img-cont" id = "art-img">
+                    <img src="${art.primaryImageSmall}">
+                </div>
+            </a>
 
-    const title = art.title[0].toUpperCase() + art.title.slice(1);
-
-    const artInnerCode = `
-    <a href="${art.objectURL}" target="_blank"><div class="img-cont">
-        <img src="${art.primaryImageSmall}"
-    </div></a>
-    <div class="info">
-        <p class="name">${art.artistDisplayName} ${art.accessionYear} - ${art.title} </p> <br/>
-    </div>
-    `;
-
-    artEl.innerHTML = artInnerCode;
-    artCont.appendChild(artEl);
+            <div class="info">
+                <p class="name">${art.artistDisplayName} ${art.accessionYear} - ${art.title} </p> <br/>
+            </div>
+            `;
+        
+            artEl.innerHTML = artInnerCode;
+            artCont.appendChild(artEl);
+        }
+        else
+        {
+            getArt(art);
+        }
   }
 })();
