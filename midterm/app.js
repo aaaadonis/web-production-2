@@ -4,7 +4,7 @@
   const shuffleBut = document.getElementById("shuffle");
 
   function randomInt() {
-    return Math.floor(Math.random() * 436535);
+    return Math.floor(Math.random() * 823156);
   }
 
   shuffleBut.addEventListener("click", async function () {
