@@ -1,0 +1,36 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+
+
+.footer{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 0 auto;
+}
+
+.colorOne{
+   color: black;
+}
+
+.hover{
+   cursor: pointer;
+   transition: 0.3s all ease;
+}
+
+.hover:hover{
+   transform: scale(1.05);
+}
+
+
+
+
+
+
+
+
+
